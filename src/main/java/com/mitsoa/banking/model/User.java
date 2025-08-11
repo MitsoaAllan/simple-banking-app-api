@@ -25,6 +25,13 @@ public class User {
         this.email = email;
         this.birthDate = birthDate;
     }
+    public User(int id,String fullName, String email, LocalDate birthDate)
+    {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.birthDate = birthDate;
+    }
 
     public Money getActualMoney(){
         double deposit = this.transactions.stream().filter(um-> um.getTypeTransaction().equals(TypeTransaction.IN)).map(UserMoney::getMoney).mapToDouble(Money::getAmount).sum();
