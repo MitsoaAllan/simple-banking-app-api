@@ -16,5 +16,14 @@ public class Money {
     public Money(int id, double amount) {
         this.id = id;
         this.amount = amount;
+        this.creationInstant = Instant.now();
+    }
+    public Money(double amount){
+        this.amount = amount;
+    }
+    public Money(int id, double amount, Instant creationInstant) {
+        this.id = id;
+        this.amount = amount;
+        this.creationInstant = creationInstant;
     }
 }
