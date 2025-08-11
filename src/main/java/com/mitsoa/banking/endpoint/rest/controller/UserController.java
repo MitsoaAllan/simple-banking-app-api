@@ -8,9 +8,7 @@ import com.mitsoa.banking.service.UserService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,5 +24,12 @@ public class UserController {
         List<User> usersCreated = userService.saveAll(users);
         List<UserRest> userRests = usersCreated.stream().map(userToCreateMapper::toRest).toList();
         return ResponseEntity.status(HttpStatus.OK).body(userRests);
+    }
+
+    @GetMapping("/users")
+    public ResponseEntity<List<User>> getUsers(
+            @RequestParam(defaultValue = "1") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsers(page,size));
     }
 }
