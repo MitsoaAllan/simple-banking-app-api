@@ -3,6 +3,7 @@ package com.mitsoa.banking.endpoint.rest.controller;
 import com.mitsoa.banking.model.User;
 import com.mitsoa.banking.repository.UserRepository;
 import com.mitsoa.banking.repository.db.Datasource;
+import com.mitsoa.banking.repository.mapper.UserMapper;
 import org.junit.jupiter.api.AfterAll;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class UserControllerTest {
-    private final UserRepository userRepositorySubject = new UserRepository(new Datasource());
+    private final UserRepository userRepositorySubject = new UserRepository(new Datasource(),new UserMapper());
 
     @Test
     void assert_true() {
