@@ -25,4 +25,10 @@ public class User {
         this.email = email;
         this.birthDate = birthDate;
     }
+
+    public Money getActualMoney(){
+        double deposit = this.transactions.stream().filter(um-> um.getTypeTransaction().equals(TypeTransaction.IN)).map(UserMoney::getMoney).mapToDouble(Money::getAmount).sum();
+        double withdrawals = this.transactions.stream().filter(um-> um.getTypeTransaction().equals(TypeTransaction.OUT)).map(UserMoney::getMoney).mapToDouble(Money::getAmount).sum();
+        return new Money(deposit - withdrawals);
+    }
 }
