@@ -14,8 +14,8 @@ import java.time.Instant;
 @EqualsAndHashCode
 public class UserMoney {
     private Money money;
-    private TypeTransaction  typeTransaction;
-    private Instant creationInstant;
+    private TypeTransaction typeTransaction;
+    private Instant creationInstant =  Instant.now();
 
     public UserMoney(Money money, TypeTransaction typeTransaction) {
         this.money = money;
