@@ -18,23 +18,24 @@ import java.util.List;
 
 public class UserControllerTest {
     private final UserRepository userRepositorySubject = new UserRepository(new Datasource(),new UserMapper());
-
+    List<User> users = List.of(
+            new User(
+                    "RAJAONAH Mitantsoa Allan",
+                    "hei.mitsoa@gmail.com",
+                    LocalDate.of(2003,7,6)),
+            new User(
+                    "RAJAONAH Alisoa Megane",
+                    "hei.megane@gmail.com",
+                    LocalDate.of(2011,2,25))
+    );
+    
     @Test
     void assert_true() {
         assertTrue(true);
     }
     @Test
     void save_all_repository() {
-        List<User> users = List.of(
-                new User(
-                        "RAJAONAH Mitantsoa Allan",
-                        "hei.mitsoa@gmail.com",
-                        LocalDate.of(2003,7,6)),
-                new User(
-                        "RAJAONAH Alisoa Megane",
-                        "hei.megane@gmail.com",
-                        LocalDate.of(2011,2,25))
-                );
+
         List<User> actual = userRepositorySubject.saveAll(users);
 
         assertTrue(actual.containsAll(users));
