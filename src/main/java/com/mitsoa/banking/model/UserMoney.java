@@ -19,5 +19,6 @@ public class UserMoney {
 
     public UserMoney(Money money, TypeTransaction typeTransaction) {
         this.money = money;
+        this.typeTransaction = typeTransaction;
     }
 }
