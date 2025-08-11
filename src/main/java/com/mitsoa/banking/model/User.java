@@ -34,6 +34,9 @@ public class User {
     }
 
     public Money getActualMoney(){
+        if(this.transactions == null ||  this.transactions.isEmpty()){
+            return new Money(0);
+        }
         double deposit = this.transactions.stream().filter(um-> um.getTypeTransaction().equals(TypeTransaction.IN)).map(UserMoney::getMoney).mapToDouble(Money::getAmount).sum();
         double withdrawals = this.transactions.stream().filter(um-> um.getTypeTransaction().equals(TypeTransaction.OUT)).map(UserMoney::getMoney).mapToDouble(Money::getAmount).sum();
         return new Money(deposit - withdrawals);
