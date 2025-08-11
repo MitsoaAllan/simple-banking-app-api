@@ -4,6 +4,7 @@ import lombok.*;
 
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -16,8 +17,9 @@ public class User {
     private String email;
     private LocalDate birthDate;
     private Instant creationInstant;
+    @Setter private List<UserMoney> transactions;
 
-    public  User(String fullName, String email, LocalDate birthDate)
+    public User(String fullName, String email, LocalDate birthDate)
     {
         this.fullName = fullName;
         this.email = email;
