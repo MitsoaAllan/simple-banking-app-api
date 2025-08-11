@@ -1,0 +1,138 @@
+openapi : 3.0.0
+info :
+  title: Simple Banking App
+  description: API to manage transactions in a bank
+  contact:
+    email: hei.mitsoa@gmail.com
+  version: 1.0.0
+servers:
+  - url : localhost:8080
+paths:
+  /users:
+    post:
+      summary: Create list of users
+      operationId: saveUsers
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type:
+                array
+              items:
+                $ref:
+                  "#/components/schemas/UserCreate"
+      responses:
+        200:
+          description: Users created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref:
+                    "#/components/schemas/User"
+    get:
+      summary: Get list of users
+      operationId: getUsers
+      responses:
+        200:
+          description: List of users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+  /users/{email}:
+    put:
+      summary: Update user details
+      operationId: updateUser
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              items:
+                $ref: "#/components/schemas/UserUpdate"
+      responses:
+        200:
+          description: User update
+          content:
+            application/json:
+              schema:
+                $ref : "#/components/schemas/User"
+    delete:
+      summary: Delete user
+      operationId: deleteUser
+      parameters:
+        - in: path
+          name: email
+          required: true
+          schema:
+            type: string
+      responses:
+        200:
+          description: User deleted
+          content:
+            text/plain:
+              schema:
+                type: array
+                description: User deleted
+components:
+  schemas:
+    User:
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        transactions:
+          type:
+            object
+      allOf:
+        - $ref: '#/components/schemas/UserCreate'
+        - type: object
+    UserCreate:
+      type: object
+      required:
+        - fullName
+        - email
+        - birthdate
+      uniqueItems:
+        - email
+      properties:
+        fullName:
+          type: string
+        email:
+          type: string
+        birthdate:
+          type : string
+    UserRest:
+      type: object
+      required:
+        - fullName
+        - email
+        - birthdate
+      properties:
+        fullName:
+          type: string
+        email:
+          type: string
+        birthdate:
+          type: object
+    UserUpdate:
+      type: object
+      properties:
+        fullName:
+          type : string
+        birthdate :
+          type: object
+    UserDelete:
+      type: string
+      description: User deleted
