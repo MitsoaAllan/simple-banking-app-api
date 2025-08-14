@@ -32,4 +32,9 @@ public class UserController {
             @RequestParam(defaultValue = "10") Integer size) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.findAll(page,size));
     }
+
+    @GetMapping("/users/{email}")
+    public ResponseEntity<User> getByEmail(@PathVariable String email) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
+    }
 }
