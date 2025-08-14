@@ -1,5 +1,6 @@
 package com.mitsoa.banking.endpoint.rest.controller;
 
+import com.mitsoa.banking.exception.UserNotFoundException;
 import com.mitsoa.banking.model.User;
 import com.mitsoa.banking.repository.UserRepository;
 import com.mitsoa.banking.repository.db.Datasource;
@@ -64,6 +65,28 @@ public class UserControllerTest {
         assertEquals(users.get(1).getBirthDate(),actual.get(1).getBirthDate());
         assertEquals(users.get(1).getEmail(),actual.get(1).getEmail());
         assertEquals(users.get(1).getTransactions(),actual.get(1).getTransactions());
+
+    }
+
+    @Test
+    void find_user_by_email_repository(){
+        userRepositorySubject.saveAll(users);
+        User actualMitsoa = userRepositorySubject.findByEmail("hei.mitsoa@gmail.com");
+        User actualMegane = userRepositorySubject.findByEmail("hei.megane@gmail.com");
+
+        assertNotNull(actualMitsoa);
+        assertNotNull(actualMegane);
+        assertEquals(actualMitsoa.getFullName(), users.getFirst().getFullName());
+        assertEquals(actualMegane.getFullName(), users.get(1).getFullName());
+        assertEquals(actualMitsoa.getEmail(), users.getFirst().getEmail());
+        assertEquals(actualMegane.getEmail(), users.get(1).getEmail());
+    }
+
+    @Test
+    void throw_user_not_found_exception_if_no_email(){
+        assertThrows(RuntimeException.class, ()->{
+            userRepositorySubject.findByEmail("dummy@gmail.com");
+        });
 
     }
 
