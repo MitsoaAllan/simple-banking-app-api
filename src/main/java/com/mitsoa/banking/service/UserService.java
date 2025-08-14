@@ -19,4 +19,8 @@ public class UserService {
     public List<User> findAll(Integer page, Integer size) {
         return userRepository.findAll(page,size);
     }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
 }
