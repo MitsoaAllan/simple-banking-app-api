@@ -30,6 +30,6 @@ public class UserController {
     public ResponseEntity<List<User>> getUsers(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.getUsers(page,size));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll(page,size));
     }
 }

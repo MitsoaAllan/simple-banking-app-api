@@ -16,7 +16,7 @@ public class UserService {
         return userRepository.saveAll(users);
     }
 
-    public List<User> getUsers(Integer page, Integer size) {
-        return userRepository.getUsers(page,size);
+    public List<User> findAll(Integer page, Integer size) {
+        return userRepository.findAll(page,size);
     }
 }

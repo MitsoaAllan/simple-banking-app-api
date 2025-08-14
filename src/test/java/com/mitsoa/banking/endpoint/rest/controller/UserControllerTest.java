@@ -49,9 +49,9 @@ public class UserControllerTest {
     }
 
     @Test
-    void get_users_with_repository(){
+    void find_users_with_repository(){
         userRepositorySubject.saveAll(users);
-        List<User> actual = userRepositorySubject.getUsers(1,2);
+        List<User> actual = userRepositorySubject.findAll(1,2);
 
         assertTrue(users.size() == actual.size() && actual.size() == 2);
         assertNotNull(actual);

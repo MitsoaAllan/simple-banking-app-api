@@ -47,14 +47,9 @@ public class UserRepository implements CrudRepostory<User> {
         return users;
     }
 
-    @Override
-    public List<User> findAll() {
-        // TODO: find all users method
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
     @SneakyThrows
-    public List<User> getUsers(Integer page, Integer size) {
+    @Override
+    public List<User> findAll(Integer page, Integer size) {
         List<User> users = new ArrayList<>();
         String sql = """
                 select id,full_name,email,birthdate,creation_instant
