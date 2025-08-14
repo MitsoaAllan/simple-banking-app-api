@@ -1,5 +1,6 @@
 package com.mitsoa.banking.repository;
 
+import com.mitsoa.banking.exception.UserNotFoundException;
 import com.mitsoa.banking.model.User;
 import com.mitsoa.banking.repository.db.Datasource;
 import com.mitsoa.banking.repository.mapper.UserMapper;
@@ -69,5 +70,31 @@ public class UserRepository implements CrudRepostory<User> {
             }
         }
         return users;
+    }
+
+    @Override
+    public User findByEmail(String email) {
+        String sql = """
+                select id,full_name,email,birthdate,creation_instant
+                from "user"
+                where email = ?
+                limit 1
+                """;
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql);
+        ){
+            ps.setString(1,email);
+            try(ResultSet rs = ps.executeQuery()){
+                if(rs.next()){
+                    return userMapper.apply(rs);
+                }else{
+                    throw new UserNotFoundException("User not found with email: " + email);
+                }
+            } catch (UserNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }catch(SQLException e){
+            throw new RuntimeException(e);
+        }
     }
 }
