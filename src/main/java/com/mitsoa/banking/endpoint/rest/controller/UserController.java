@@ -18,7 +18,7 @@ import java.util.List;
 @AllArgsConstructor
 public class UserController {
     private final UserService userService;
-    private UserToCreateMapper userToCreateMapper;
+    private final UserToCreateMapper userToCreateMapper;
 
     @PostMapping("/users")
     public ResponseEntity<List<UserRest>> save(@RequestBody List<UserToCreate> usersToCreate) {
