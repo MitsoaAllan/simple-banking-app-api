@@ -88,10 +88,8 @@ public class UserRepository implements CrudRepostory<User> {
                 if(rs.next()){
                     return userMapper.apply(rs);
                 }else{
-                    throw new UserNotFoundException("User not found with email: " + email);
+                    return null;
                 }
-            } catch (UserNotFoundException e) {
-                throw new RuntimeException(e);
             }
         }catch(SQLException e){
             throw new RuntimeException(e);
