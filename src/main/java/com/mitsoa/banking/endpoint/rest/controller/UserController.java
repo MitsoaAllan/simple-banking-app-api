@@ -3,6 +3,8 @@ package com.mitsoa.banking.endpoint.rest.controller;
 import com.mitsoa.banking.endpoint.rest.mapper.UserToCreateMapper;
 import com.mitsoa.banking.endpoint.rest.model.UserRest;
 import com.mitsoa.banking.endpoint.rest.model.UserToCreate;
+import com.mitsoa.banking.endpoint.rest.model.UserToUpdate;
+import com.mitsoa.banking.exception.UserNotFoundException;
 import com.mitsoa.banking.model.User;
 import com.mitsoa.banking.service.UserService;
 import lombok.AllArgsConstructor;
@@ -41,5 +43,10 @@ public class UserController {
     @DeleteMapping("/users/{email}")
     public ResponseEntity<String> deleteByEmail(@PathVariable String email) {
         return ResponseEntity.status(HttpStatus.OK).body(userService.deleteByEmail(email));
+    }
+
+    @PatchMapping("/users/{email}")
+    public ResponseEntity<User> updateByEmail(@PathVariable String email, @RequestBody UserToUpdate userToUpdate) throws UserNotFoundException {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.updateByEmail(email,userToUpdate));
     }
 }
