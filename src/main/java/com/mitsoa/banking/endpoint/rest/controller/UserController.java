@@ -1,5 +1,6 @@
 package com.mitsoa.banking.endpoint.rest.controller;
 
+import com.mitsoa.banking.endpoint.rest.mapper.UserRestMapper;
 import com.mitsoa.banking.endpoint.rest.mapper.UserToCreateMapper;
 import com.mitsoa.banking.endpoint.rest.model.UserRest;
 import com.mitsoa.banking.endpoint.rest.model.UserToCreate;
@@ -19,6 +20,7 @@ import java.util.List;
 public class UserController {
     private final UserService userService;
     private final UserToCreateMapper userToCreateMapper;
+    private final UserRestMapper userRestMapper;
 
     @PostMapping("/users")
     public ResponseEntity<List<UserRest>> save(@RequestBody List<UserToCreate> usersToCreate) {
@@ -29,15 +31,17 @@ public class UserController {
     }
 
     @GetMapping("/users")
-    public ResponseEntity<List<User>> getUsers(
+    public ResponseEntity<List<com.mitsoa.banking.endpoint.rest.model.User>> getUsers(
             @RequestParam(defaultValue = "1") Integer page,
             @RequestParam(defaultValue = "10") Integer size) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findAll(page,size));
+        List<User> users = userService.findAll(page,size);
+        return ResponseEntity.status(HttpStatus.OK).body(users.stream().map(userRestMapper::apply).toList());
     }
 
     @GetMapping("/users/{email}")
-    public ResponseEntity<User> getByEmail(@PathVariable String email) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findByEmail(email));
+    public ResponseEntity<com.mitsoa.banking.endpoint.rest.model.User> getByEmail(@PathVariable String email) {
+        User user = userService.findByEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(userRestMapper.apply(user));
     }
 
     @DeleteMapping("/users/{email}")
@@ -46,7 +50,8 @@ public class UserController {
     }
 
     @PatchMapping("/users/{email}")
-    public ResponseEntity<User> updateByEmail(@PathVariable String email, @RequestBody UserToUpdate userToUpdate) throws UserNotFoundException {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.updateByEmail(email,userToUpdate));
+    public ResponseEntity<com.mitsoa.banking.endpoint.rest.model.User> updateByEmail(@PathVariable String email, @RequestBody UserToUpdate userToUpdate) throws UserNotFoundException {
+        User user = userService.updateByEmail(email,userToUpdate);
+        return ResponseEntity.status(HttpStatus.OK).body(userRestMapper.apply(user));
     }
 }
