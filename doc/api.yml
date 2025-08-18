@@ -108,7 +108,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/Money"
+              $ref: "#/components/schemas/UserMoney"
       responses:
         200:
           content:
@@ -176,5 +176,22 @@ components:
         amount:
           type: number
           required: true
+        creationInstant:
+          type: object
+    UserMoney:
+      type: object
+      required:
+        - money
+        - transactionType
+      properties:
+        money:
+          type: object
+          allOf:
+            - $ref: "#/components/schemas/Money"
+        transactionType:
+          type: string
+          enum:
+            - IN
+            - OUT
         creationInstant:
           type: object
