@@ -34,6 +34,13 @@ public class User {
         this.creationInstant = creationInstant;
     }
 
+    public User(int id, String fullName, String email, LocalDate birthDate) {
+        this.id = id;
+        this.fullName = fullName;
+        this.email = email;
+        this.birthDate = birthDate;
+    }
+
     public Money getActualMoney(){
         if(this.transactions == null ||  this.transactions.isEmpty()){
             return new Money(0);
