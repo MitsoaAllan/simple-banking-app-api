@@ -83,10 +83,8 @@ public class UserControllerTest {
     }
 
     @Test
-    void throw_user_not_found_exception_if_no_email(){
-        assertThrows(RuntimeException.class, ()->{
-            userRepositorySubject.findByEmail("dummy@gmail.com");
-        });
+    void return_null_if_no_email_repository(){
+        assertNull(userRepositorySubject.findByEmail("dummy@gmail.com"));
 
     }
 
