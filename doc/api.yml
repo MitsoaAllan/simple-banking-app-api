@@ -58,7 +58,7 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/User"
-    put:
+    patch:
       summary: Update user details
       operationId: updateUser
       parameters:
