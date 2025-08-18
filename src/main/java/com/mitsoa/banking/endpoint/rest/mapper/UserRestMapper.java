@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 public class UserRestMapper {
 
     public com.mitsoa.banking.endpoint.rest.model.User apply(User user) {
-        return null;
+        return new  com.mitsoa.banking.endpoint.rest.model.User(
+                user.getFullName(),
+                user.getEmail(),
+                user.getBirthDate(),
+                user.getActualMoney().getAmount()
+        );
     }
 }
