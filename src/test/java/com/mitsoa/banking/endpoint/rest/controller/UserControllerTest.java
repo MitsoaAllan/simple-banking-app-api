@@ -90,6 +90,16 @@ public class UserControllerTest {
 
     }
 
+    @Test
+    void delete_user_by_email_repository(){
+        userRepositorySubject.saveAll(users);
+
+        userRepositorySubject.deleteByEmail("hei.mitsoa@gmail.com");
+        userRepositorySubject.deleteByEmail("hei.megane@gmail.com");
+
+        assertEquals(userRepositorySubject.findAll(1,2),List.of());
+    }
+
     @BeforeAll
     static void setUp() throws SQLException {
         var dataSource = new Datasource();
