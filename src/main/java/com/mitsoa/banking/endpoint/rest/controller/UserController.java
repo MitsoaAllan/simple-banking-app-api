@@ -41,6 +41,7 @@ public class UserController {
     @GetMapping("/users/{email}")
     public ResponseEntity<com.mitsoa.banking.endpoint.rest.model.User> getByEmail(@PathVariable String email) {
         User user = userService.findByEmail(email);
+        if (user == null) return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new com.mitsoa.banking.endpoint.rest.model.User());
         return ResponseEntity.status(HttpStatus.OK).body(userRestMapper.apply(user));
     }
 
