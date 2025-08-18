@@ -45,6 +45,19 @@ paths:
                 items:
                   $ref: '#/components/schemas/User'
   /users/{email}:
+    get:
+      summary: Get one user
+      operationId: getOneUser
+      parameters:
+        - in: path
+          name: email
+      responses:
+        200:
+          description: get by email
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
     put:
       summary: Update user details
       operationId: updateUser
