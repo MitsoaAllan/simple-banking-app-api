@@ -115,4 +115,29 @@ public class UserRepository implements CrudRepostory<User> {
             throw new RuntimeException(e);
         }
     }
+
+    public User updateById(int id, User user) {
+        String sql = """
+                update "user"
+                set full_name=?, birthdate=?
+                where id=?
+        """;
+
+        try(Connection connection = dataSource.getConnection();
+        PreparedStatement ps = connection.prepareStatement(sql)
+        ){
+            ps.setString(1,user.getFullName());
+            ps.setDate(2,Date.valueOf(user.getBirthDate()));
+            ps.setInt(3,id);
+
+            int rows = ps.executeUpdate();
+            if( rows >0 ){
+                return new User(id,user.getFullName(),user.getEmail(),user.getBirthDate());
+            }else{
+                return null;
+            }
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
