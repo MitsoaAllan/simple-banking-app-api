@@ -97,4 +97,24 @@ public class UserRepository implements CrudRepostory<User> {
             throw new RuntimeException(e);
         }
     }
+
+    public String deleteByEmail(String email) {
+        String sql = """
+                delete from "user"
+                where email = ?
+                """;
+        try(Connection connection = dataSource.getConnection();
+            PreparedStatement ps = connection.prepareStatement(sql)
+        ){
+            ps.setString(1,email);
+            int rows = ps.executeUpdate();
+            if (rows > 0){
+                return ("user with email " + email + " deleted successfully");
+            }else{
+                throw new UserNotFoundException("User with email "+email+" does not exists");
+            }
+        }catch(SQLException | UserNotFoundException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
