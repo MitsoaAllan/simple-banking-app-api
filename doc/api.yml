@@ -105,9 +105,9 @@ components:
       properties:
         id:
           type: integer
-        transactions:
+        balance:
           type:
-            object
+            number
       allOf:
         - $ref: '#/components/schemas/UserCreate'
         - type: object
