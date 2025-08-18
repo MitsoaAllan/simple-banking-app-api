@@ -160,6 +160,9 @@ components:
           type: object
     UserUpdate:
       type: object
+      required:
+        - fullName
+        - birthdate
       properties:
         fullName:
           type : string
@@ -170,6 +173,9 @@ components:
       description: User deleted
     Money:
       type: object
+      required:
+        - id
+        - amount
       properties:
         id:
           type: integer
