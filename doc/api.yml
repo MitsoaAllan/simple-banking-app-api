@@ -97,6 +97,25 @@ paths:
               schema:
                 type: array
                 description: User deleted
+  /users/{id}/money:
+    put:
+      description: Add transaction
+      operationId: putMoney
+      parameters:
+        - in: path
+          name: id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Money"
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+          description: Make a transaction
 components:
   schemas:
     User:
@@ -149,3 +168,13 @@ components:
     UserDelete:
       type: string
       description: User deleted
+    Money:
+      type: object
+      properties:
+        id:
+          type: integer
+        amount:
+          type: number
+          required: true
+        creationInstant:
+          type: object
